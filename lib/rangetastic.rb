@@ -21,7 +21,7 @@ module Rangetastic
 
     private
     def build_between_condition(start_date, end_date, field)
-      { :conditions => ["#{field} >= ? AND #{field} <= ?", start_date, end_date] }
+      { :conditions => ["#{field} BETWEEN ? AND ?", start_date, end_date] }
     end
   end
 end
