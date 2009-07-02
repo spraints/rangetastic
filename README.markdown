@@ -22,5 +22,6 @@ Then in your model pass in the fields you wish to allow to be searchable using t
 You can then chain the between scope with any named_scope call you make:
 
     Order.fulfilled.between(1.week.ago, 10.minutes.ago, "fulfilled_on")
+    Order.fulfilled.ordered_between(1.week.ago, 10.minutes.ago)
     
 And if you (or someone nasty!) try to use a field that is not whitelisted, it will raise ActiveRecord::StatementInvalid

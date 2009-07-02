@@ -10,6 +10,13 @@ module Rangetastic
         field = options[:fields].include?(fieldname) ? fieldname : raise(ActiveRecord::StatementInvalid)
         { :conditions => ["#{field} >= ? AND #{field} <= ?", start_date, end_date] }
       }
+
+      options[:fields].each do |field|
+        scope_name = (field.sub(/_on$/,'') + '_between')
+        named_scope scope_name, lambda { |start_date, end_date|
+          { :conditions => ["#{field} >= ? AND #{field} <= ?", start_date, end_date] }
+        }
+      end
     end
   end
 end
