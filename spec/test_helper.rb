@@ -12,18 +12,12 @@ class TestHelper
   
   def setup_postgresql
     ActiveRecord::Base.establish_connection(
-      :adapter  => 'postgresql',
-      :database => 'rangetastic',
-      :username => @username,
-      :password => @password,
-      :host     => @host
+      :adapter  => 'sqlite3',
+      :database => 'tmp/testdb.sqlite3'
     )
     ActiveRecord::Base.logger = Logger.new(File.open("tmp/activerecord.log", "a"))
     
-    structure = File.open("spec/fixtures/structure.sql") { |f| f.read.chomp }
-    structure.split(';').each { |table|
-      ActiveRecord::Base.connection.execute table
-    }
+    load("spec/fixtures/schema.rb")
     
     10.times do
       Order.create(:ordered_on => 2.weeks.ago, :fulfilled_on => 2.days.ago)
