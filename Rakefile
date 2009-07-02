@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'rake'
 require 'echoe'
+require 'spec/rake/spectask'
 
 Echoe.new('rangetastic', '0.1.3') do |p|
   p.description     = "Chain a date range to any named_scope on any date field with specified white listed fields"
@@ -12,3 +13,5 @@ Echoe.new('rangetastic', '0.1.3') do |p|
 end
 
 Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
+
+Spec::Rake::SpecTask.new
